@@ -1,0 +1,7 @@
+0000.000 (1) Opened log file at time: Mon, 17 Aug 2026 14:40:53 +0000 on https://odooservice.de
+0000.002 (1) UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.26.6 WP: 7.0.4 PHP: 8.3.30 (litespeed, Linux sg-nme-web1234.main-hosting.eu 4.18.0-553.121.1.lve.el8.x86_64 #1 SMP Thu Apr 30 16:40:41 UTC 2026 x86_64) MySQL: 11.8.8-MariaDB-log (max packet size=1073741824) WPLANG: de_DE Server: LiteSpeed safe_mode: 0 max_execution_time: 900 memory_limit: 2048M (used: 12.4M | 14M) multisite: N openssl: OpenSSL 1.1.1w  11 Sep 2023 mcrypt: N LANG:  WP Proxy: disabled ZipArchive::addFile: Y
+0000.003 (1) Free space on disk containing Updraft's temporary directory: 3025084 MB
+0000.005 (1) Requesting backup semaphore lock (udp_backupjob_153247d148b4)
+0000.007 (1) [Debug] Lock option (updraft_lock_udp_backupjob_153247d148b4, wp_options) was created in the database
+0000.007 (1) [Info] Lock (updraft_lock_udp_backupjob_153247d148b4, wp_options) acquired after initialising the database
+0000.009 (1) This backup task (153247d148b4) is either complete or began over 2 days ago: ending (1786977653.0464, ) (existing jobdata keys: )

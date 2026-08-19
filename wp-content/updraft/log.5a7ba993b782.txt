@@ -1,0 +1,255 @@
+0000.003 () Opened log file at time: Mon, 17 Aug 2026 14:37:41 +0000 on https://odooservice.de
+0000.004 () UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.26.6 WP: 7.0.4 PHP: 8.3.30 (litespeed, Linux sg-nme-web1234.main-hosting.eu 4.18.0-553.121.1.lve.el8.x86_64 #1 SMP Thu Apr 30 16:40:41 UTC 2026 x86_64) MySQL: 11.8.8-MariaDB-log (max packet size=1073741824) WPLANG: de_DE Server: LiteSpeed safe_mode: 0 max_execution_time: 900 memory_limit: 2048M (used: 14.1M | 16M) multisite: N openssl: OpenSSL 1.1.1w  11 Sep 2023 mcrypt: N LANG:  WP Proxy: disabled ZipArchive::addFile: Y
+0000.004 () Free space on disk containing Updraft's temporary directory: 3025770.3 MB
+0000.012 () Restore setup, now closing connection and starting restore over AJAX.
+0000.003 () Opened log file at time: Mon, 17 Aug 2026 14:37:42 +0000 on https://odooservice.de
+0000.004 () UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.26.6 WP: 7.0.4 PHP: 8.3.30 (litespeed, Linux sg-nme-web1234.main-hosting.eu 4.18.0-553.121.1.lve.el8.x86_64 #1 SMP Thu Apr 30 16:40:41 UTC 2026 x86_64) MySQL: 11.8.8-MariaDB-log (max packet size=1073741824) WPLANG: de_DE Server: LiteSpeed safe_mode: 0 max_execution_time: 900 memory_limit: 2048M (used: 11.3M | 14M) multisite: N openssl: OpenSSL 1.1.1w  11 Sep 2023 mcrypt: N LANG:  WP Proxy: disabled ZipArchive::addFile: Y
+0000.004 () Free space on disk containing Updraft's temporary directory: 3025768.1 MB
+0000.011 () Ensuring WP_Filesystem is setup for a restore
+0000.011 () WP_Filesystem is setup and ready for a restore
+0000.014 () Restore job started. Entities to restore: plugins, themes, uploads, others, db. Restore options: {"updraft_restorer_replacesiteurl":"1","include_unspecified_tables":false,"tables_to_restore":["wp_options","wp_users","wp_usermeta","wp_actionscheduler_actions","wp_actionscheduler_claims","wp_actionscheduler_groups","wp_actionscheduler_logs","wp_commentmeta","wp_comments","wp_e_notes","wp_e_notes_users_relations","wp_links","wp_postmeta","wp_posts","wp_term_relationships","wp_term_taxonomy","wp_termmeta","wp_terms","wp_e_events","wp_e_submissions","wp_e_submissions_actions_log","wp_e_submissions_values","wp_rank_math_404_logs","wp_rank_math_internal_links","wp_rank_math_internal_meta","wp_rank_math_redirections","wp_rank_math_redirections_cache","wp_wpmailsmtp_debug_events","wp_wpmailsmtp_tasks_meta"],"tables_to_skip":[],"updraft_encryptionphrase":"","updraft_restorer_wpcore_includewpconfig":false,"updraft_incremental_restore_point":-1}
+0000.016 () Will not delete any archives after unpacking them, because there was no cloud storage for this backup
+0000.018 () Entity: db
+0000.018 () restore_backup(backup_file=backup_2026-08-17-1520_odooservice_153247d148b4-db.gz, type=db, info=a:0:{}, last_one=)
+0000.018 () Entpacke Sicherung... (backup_2026-08-17-1520_odooservice_153247d148b4-db.gz, 12.6 Mb)
+0000.033 () Database successfully unpacked
+0000.033 () Datenbank wiederherstellen (bei großen Websites kann das dauern - wenn der Vorgang in einen Timeout läuft (was passieren kann, wenn dein Webhoster die Ressourcen limitiert) solltest du andere Methoden, wie z.B. phpMyAdmin, nutzen) ...
+0000.033 () Using direct MySQL access; value of use_mysqli is: 1
+0000.034 () SQL compatibility mode is: NO_AUTO_VALUE_ON_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+0000.084 () Max packet size: 1024 MB
+0000.084 () Entering maintenance mode
+0000.084 () Wartungsmodus wird aktiviert …
+0000.091 () Backup of: https://odooservice.de
+0000.112 () Content URL: https://odooservice.de/wp-content
+0000.112 () Uploads URL: https://odooservice.de/wp-content/uploads
+0000.112 () Old table prefix: wp_
+0000.112 () Old ABSPATH: /usr/www/users/ebakerr/odooserviceDe/
+0000.112 () UpdraftPlus plugin slug: updraftplus/updraftplus.php
+0000.112 () Site information: multisite=0
+0000.113 () Site information: sql_mode=ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+0000.113 () Skipped execution of SQL statement (unwanted or internally handled type=18): /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+0000.113 () New table prefix: lc_
+0000.123 () Processing table (InnoDB): wp_options - will restore as: lc_options
+0000.207 () Atomic restore: dropping original table (wp_options)
+0000.221 () Atomic restore: renaming new table (lc_options) to final table name (wp_options)
+0000.358 () Restoring prior UD configuration (table: wp_options; keys: 102)
+0000.562 () Search and replacing table: wp_options: rows: 455
+0000.599 () Processing table (InnoDB): wp_users - will restore as: lc_users
+0000.621 () Atomic restore: dropping original table (wp_users)
+0000.628 () Atomic restore: renaming new table (lc_users) to final table name (wp_users)
+0000.631 () Search and replacing table: wp_users: rows: 1
+0000.639 () Processing table (InnoDB): wp_usermeta - will restore as: lc_usermeta
+0000.661 () Atomic restore: dropping original table (wp_usermeta)
+0000.673 () Atomic restore: renaming new table (lc_usermeta) to final table name (wp_usermeta)
+0000.676 () Search and replacing table: wp_usermeta: rows: 37
+0000.677 () Processing table (InnoDB): wp_actionscheduler_actions - will restore as: lc_actionscheduler_actions
+0000.712 () Atomic restore: dropping original table (wp_actionscheduler_actions)
+0000.724 () Atomic restore: renaming new table (lc_actionscheduler_actions) to final table name (wp_actionscheduler_actions)
+0000.728 () Search and replacing table: wp_actionscheduler_actions: rows: 103
+0000.731 () Processing table (InnoDB): wp_actionscheduler_claims - will restore as: lc_actionscheduler_claims
+0000.771 () Atomic restore: dropping original table (wp_actionscheduler_claims)
+0000.779 () Atomic restore: renaming new table (lc_actionscheduler_claims) to final table name (wp_actionscheduler_claims)
+0000.782 () Search and replacing table: wp_actionscheduler_claims: rows: 0
+0000.782 () Processing table (InnoDB): wp_actionscheduler_groups - will restore as: lc_actionscheduler_groups
+0000.800 () Atomic restore: dropping original table (wp_actionscheduler_groups)
+0000.808 () Atomic restore: renaming new table (lc_actionscheduler_groups) to final table name (wp_actionscheduler_groups)
+0000.811 () Search and replacing table: wp_actionscheduler_groups: rows: 4
+0000.811 () Processing table (InnoDB): wp_actionscheduler_logs - will restore as: lc_actionscheduler_logs
+0000.830 () Atomic restore: dropping original table (wp_actionscheduler_logs)
+0000.838 () Atomic restore: renaming new table (lc_actionscheduler_logs) to final table name (wp_actionscheduler_logs)
+0000.841 () Search and replacing table: wp_actionscheduler_logs: rows: 299
+0000.843 () Processing table (InnoDB): wp_commentmeta - will restore as: lc_commentmeta
+0000.867 () Atomic restore: dropping original table (wp_commentmeta)
+0000.878 () Atomic restore: renaming new table (lc_commentmeta) to final table name (wp_commentmeta)
+0000.881 () Search and replacing table: wp_commentmeta: rows: 0
+0000.882 () Processing table (InnoDB): wp_comments - will restore as: lc_comments
+0000.899 () Atomic restore: dropping original table (wp_comments)
+0000.906 () Atomic restore: renaming new table (lc_comments) to final table name (wp_comments)
+0000.909 () Search and replacing table: wp_comments: rows: 0
+0000.909 () Processing table (InnoDB): wp_e_notes - will restore as: lc_e_notes
+0000.933 () Atomic restore: dropping original table (wp_e_notes)
+0000.946 () Atomic restore: renaming new table (lc_e_notes) to final table name (wp_e_notes)
+0000.950 () Search and replacing table: wp_e_notes: rows: 0
+0000.950 () Processing table (InnoDB): wp_e_notes_users_relations - will restore as: lc_e_notes_users_relations
+0000.968 () Atomic restore: dropping original table (wp_e_notes_users_relations)
+0000.977 () Atomic restore: renaming new table (lc_e_notes_users_relations) to final table name (wp_e_notes_users_relations)
+0000.981 () Search and replacing table: wp_e_notes_users_relations: rows: 0
+0000.981 () Processing table (InnoDB): wp_links - will restore as: lc_links
+0000.992 () Skipped execution of SQL statement (unwanted or internally handled type=18): /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+0001.004 () Atomic restore: dropping original table (wp_links)
+0001.013 () Atomic restore: renaming new table (lc_links) to final table name (wp_links)
+0001.016 () Search and replacing table: wp_links: rows: 0
+0001.017 () Processing table (InnoDB): wp_postmeta - will restore as: lc_postmeta
+0001.025 () Database queries processed: 50 in 0.99 seconds
+0002.458 () Database queries processed: 100 in 2.42 seconds
+0003.478 () Database queries processed: 150 in 3.44 seconds
+0003.845 () Skipped execution of SQL statement (unwanted or internally handled type=18): /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+0003.856 () Atomic restore: dropping original table (wp_postmeta)
+0003.871 () Atomic restore: renaming new table (lc_postmeta) to final table name (wp_postmeta)
+0004.066 () Search and replacing table: wp_postmeta: rows: 1292
+0010.526 () Processing table (InnoDB): wp_posts - will restore as: lc_posts
+0010.885 () Database queries processed: 200 in 10.85 seconds
+0011.364 () Atomic restore: dropping original table (wp_posts)
+0011.390 () Atomic restore: renaming new table (lc_posts) to final table name (wp_posts)
+0011.393 () Skipping search/replace on GUID column in posts table
+0011.394 () Search and replacing table: wp_posts: rows: 1752
+0011.914 () Processing table (InnoDB): wp_term_relationships - will restore as: lc_term_relationships
+0011.941 () Atomic restore: dropping original table (wp_term_relationships)
+0011.948 () Atomic restore: renaming new table (lc_term_relationships) to final table name (wp_term_relationships)
+0011.950 () Skipping this table: data in this table (wp_term_relationships) should not be search/replaced
+0011.950 () Processing table (InnoDB): wp_term_taxonomy - will restore as: lc_term_taxonomy
+0011.965 () Atomic restore: dropping original table (wp_term_taxonomy)
+0011.972 () Atomic restore: renaming new table (lc_term_taxonomy) to final table name (wp_term_taxonomy)
+0011.974 () Search and replacing table: wp_term_taxonomy: rows: 11
+0011.975 () Processing table (InnoDB): wp_termmeta - will restore as: lc_termmeta
+0011.989 () Atomic restore: dropping original table (wp_termmeta)
+0011.995 () Atomic restore: renaming new table (lc_termmeta) to final table name (wp_termmeta)
+0011.998 () Search and replacing table: wp_termmeta: rows: 0
+0011.998 () Processing table (InnoDB): wp_terms - will restore as: lc_terms
+0012.011 () Database queries processed: 250 in 11.98 seconds
+0012.012 () Atomic restore: dropping original table (wp_terms)
+0012.018 () Atomic restore: renaming new table (lc_terms) to final table name (wp_terms)
+0012.021 () Search and replacing table: wp_terms: rows: 11
+0012.022 () Processing table (InnoDB): wp_e_events - will restore as: lc_e_events
+0012.034 () Atomic restore: dropping original table (wp_e_events)
+0012.041 () Atomic restore: renaming new table (lc_e_events) to final table name (wp_e_events)
+0012.044 () Search and replacing table: wp_e_events: rows: 0
+0012.044 () Processing table (InnoDB): wp_e_submissions - will restore as: lc_e_submissions
+0012.070 () Atomic restore: dropping original table (wp_e_submissions)
+0012.076 () Atomic restore: renaming new table (lc_e_submissions) to final table name (wp_e_submissions)
+0012.079 () Search and replacing table: wp_e_submissions: rows: 29
+0012.085 () Processing table (InnoDB): wp_e_submissions_actions_log - will restore as: lc_e_submissions_actions_log
+0012.112 () Atomic restore: dropping original table (wp_e_submissions_actions_log)
+0012.118 () Atomic restore: renaming new table (lc_e_submissions_actions_log) to final table name (wp_e_submissions_actions_log)
+0012.122 () Search and replacing table: wp_e_submissions_actions_log: rows: 25
+0012.123 () Processing table (InnoDB): wp_e_submissions_values - will restore as: lc_e_submissions_values
+0012.148 () Atomic restore: dropping original table (wp_e_submissions_values)
+0012.159 () Atomic restore: renaming new table (lc_e_submissions_values) to final table name (wp_e_submissions_values)
+0012.163 () Search and replacing table: wp_e_submissions_values: rows: 227
+0012.164 () Processing table (InnoDB): wp_rank_math_404_logs - will restore as: lc_rank_math_404_logs
+0012.181 () Atomic restore: dropping original table (wp_rank_math_404_logs)
+0012.188 () Atomic restore: renaming new table (lc_rank_math_404_logs) to final table name (wp_rank_math_404_logs)
+0012.191 () Search and replacing table: wp_rank_math_404_logs: rows: 22
+0012.192 () Processing table (InnoDB): wp_rank_math_internal_links - will restore as: lc_rank_math_internal_links
+0012.208 () Atomic restore: dropping original table (wp_rank_math_internal_links)
+0012.214 () Atomic restore: renaming new table (lc_rank_math_internal_links) to final table name (wp_rank_math_internal_links)
+0012.217 () Search and replacing table: wp_rank_math_internal_links: rows: 15
+0012.218 () Processing table (InnoDB): wp_rank_math_internal_meta - will restore as: lc_rank_math_internal_meta
+0012.231 () Atomic restore: dropping original table (wp_rank_math_internal_meta)
+0012.238 () Atomic restore: renaming new table (lc_rank_math_internal_meta) to final table name (wp_rank_math_internal_meta)
+0012.240 () Search and replacing table: wp_rank_math_internal_meta: rows: 14
+0012.241 () Processing table (InnoDB): wp_rank_math_redirections - will restore as: lc_rank_math_redirections
+0012.253 () Atomic restore: dropping original table (wp_rank_math_redirections)
+0012.260 () Atomic restore: renaming new table (lc_rank_math_redirections) to final table name (wp_rank_math_redirections)
+0012.263 () Search and replacing table: wp_rank_math_redirections: rows: 1
+0012.263 () Processing table (InnoDB): wp_rank_math_redirections_cache - will restore as: lc_rank_math_redirections_cache
+0012.277 () Atomic restore: dropping original table (wp_rank_math_redirections_cache)
+0012.283 () Atomic restore: renaming new table (lc_rank_math_redirections_cache) to final table name (wp_rank_math_redirections_cache)
+0012.286 () Search and replacing table: wp_rank_math_redirections_cache: rows: 1
+0012.286 () Processing table (InnoDB): wp_wpmailsmtp_debug_events - will restore as: lc_wpmailsmtp_debug_events
+0012.299 () Atomic restore: dropping original table (wp_wpmailsmtp_debug_events)
+0012.306 () Atomic restore: renaming new table (lc_wpmailsmtp_debug_events) to final table name (wp_wpmailsmtp_debug_events)
+0012.309 () Search and replacing table: wp_wpmailsmtp_debug_events: rows: 0
+0012.309 () Processing table (InnoDB): wp_wpmailsmtp_tasks_meta - will restore as: lc_wpmailsmtp_tasks_meta
+0012.313 () Skipped execution of SQL statement (unwanted or internally handled type=18): /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+0012.316 () Unlocking database and leaving maintenance mode
+0012.316 () Wartungsmodus wird deaktiviert …
+0012.316 () Atomic restore: dropping original table (wp_wpmailsmtp_tasks_meta)
+0012.323 () Atomic restore: renaming new table (lc_wpmailsmtp_tasks_meta) to final table name (wp_wpmailsmtp_tasks_meta)
+0012.325 () Search and replacing table: wp_wpmailsmtp_tasks_meta: rows: 0
+0012.325 () Finished: lines processed: 284 in 12.29 seconds
+0012.329 () Räume auf ...
+0012.329 () Begin search and replace (updraftplus_restored_db)
+0012.329 () [Database-replace-site-url] Datenbank: Website-URL suchen und ersetzen
+0012.329 () Database search and replace: replace https://odooservice.de in backup dump with https://odooservice.de
+0012.330 () Database search and replace: replace http://www.odooservice.de in backup dump with https://odooservice.de
+0012.330 () Database search and replace: replace http://odooservice.de in backup dump with https://odooservice.de
+0012.330 () Database search and replace: replace https://www.odooservice.de in backup dump with https://odooservice.de
+0012.330 () Database search and replace: replace /usr/www/users/ebakerr/odooserviceDe in backup dump with /home/u505131560/domains/azure-dunlin-623817.hostingersite.com/public_html
+0012.330 () Search and replacing table: wp_actionscheduler_actions: already done
+0012.330 () Search and replacing table: wp_actionscheduler_claims: already done
+0012.330 () Search and replacing table: wp_actionscheduler_groups: already done
+0012.330 () Search and replacing table: wp_actionscheduler_logs: already done
+0012.330 () Search and replacing table: wp_commentmeta: already done
+0012.331 () Search and replacing table: wp_comments: already done
+0012.331 () Search and replacing table: wp_e_events: already done
+0012.331 () Search and replacing table: wp_e_notes: already done
+0012.331 () Search and replacing table: wp_e_notes_users_relations: already done
+0012.331 () Search and replacing table: wp_e_submissions: already done
+0012.331 () Search and replacing table: wp_e_submissions_actions_log: already done
+0012.331 () Search and replacing table: wp_e_submissions_values: already done
+0012.331 () Search and replacing table: wp_links: already done
+0012.331 () Search and replacing table: wp_options: already done
+0012.331 () Search and replacing table: wp_postmeta: already done
+0012.331 () Search and replacing table: wp_posts: already done
+0012.331 () Search and replacing table: wp_rank_math_404_logs: already done
+0012.331 () Search and replacing table: wp_rank_math_internal_links: already done
+0012.332 () Search and replacing table: wp_rank_math_internal_meta: already done
+0012.332 () Search and replacing table: wp_rank_math_redirections: already done
+0012.332 () Search and replacing table: wp_rank_math_redirections_cache: already done
+0012.332 () Search and replacing table: wp_term_relationships: already done
+0012.332 () Search and replacing table: wp_term_taxonomy: already done
+0012.332 () Search and replacing table: wp_termmeta: already done
+0012.332 () Search and replacing table: wp_terms: already done
+0012.332 () Search and replacing table: wp_usermeta: already done
+0012.332 () Search and replacing table: wp_users: already done
+0012.332 () Search and replacing table: wp_wpmailsmtp_debug_events: already done
+0012.332 () Search and replacing table: wp_wpmailsmtp_tasks_meta: already done
+0012.333 () Search and replacing table: wp_hostinger_reach_carts: rows: 0
+0012.334 () Search and replacing table: wp_hostinger_reach_contact_lists: rows: 0
+0012.336 () Search and replacing table: wp_hostinger_reach_forms: rows: 0
+0012.337 () Search and replacing table: wp_litespeed_url: rows: 0
+0012.338 () Search and replacing table: wp_litespeed_url_file: rows: 0
+0012.345 () Entity: plugins
+0012.345 () restore_backup(backup_file=backup_2026-08-17-1520_odooservice_153247d148b4-plugins.zip, type=plugins, info=a:3:{s:4:"path";s:93:"/home/u505131560/domains/azure-dunlin-623817.hostingersite.com/public_html/wp-content/plugins";s:11:"description";s:7:"Plugins";s:20:"singular_description";s:6:"Plugin";}, last_one=)
+0012.345 () Entpacke Sicherung... (backup_2026-08-17-1520_odooservice_153247d148b4-plugins.zip, 48.8 MB)
+0012.347 () Unzipping backup_2026-08-17-1520_odooservice_153247d148b4-plugins.zip to /home/u505131560/domains/azure-dunlin-623817.hostingersite.com/public_html/wp-content/upgrade/305b42ec/ using UpdraftPlus_ZipArchive, starting index 0
+0012.793 () Unzip progress: 1892 out of 11113 files (9.5 KB, plugins/pro-elements/assets/css/widget-nested-carousel.min.css)
+0013.092 () Unzip progress: 2893 out of 11113 files (14.1 MB, plugins/seo-by-rank-math/includes/modules/ai-visibility/assets/src/Dashboard/BrandsTableToolbar.js)
+0013.367 () Unzip progress: 3894 out of 11113 files (23.3 MB, plugins/wp-mail-smtp/vendor_prefixed/guzzlehttp/psr7/src/Exception/MalformedUriException.php)
+0013.591 () Unzip progress: 4895 out of 11113 files (31.6 MB, plugins/elementor/modules/atomic-widgets/elements/atomic-image/atomic-image.php)
+0013.813 () Unzip progress: 5896 out of 11113 files (42.2 MB, plugins/elementor/assets/js/editor.js)
+0014.178 () Unzip progress: 6897 out of 11113 files (69.8 MB, plugins/elementor/assets/css/widget-nested-tabs.min.css)
+0014.571 () Unzip progress: 7898 out of 11113 files (111 MB, plugins/updraftplus/languages/updraftplus-es_CR.mo)
+0014.891 () Unzip progress: 8899 out of 11113 files (134.8 MB, plugins/updraftplus/includes/class-database-utility.php)
+0015.121 () Unzip progress: 9900 out of 11113 files (142.1 MB, plugins/wpide/vendor/monolog/monolog/src/Monolog/Handler/BufferHandler.php)
+0015.424 () Unzip progress: 10901 out of 11113 files (162.1 MB, plugins/wpide/vendor/symfony/http-foundation/Session/Storage/SessionStorageFactoryInterface.php)
+0015.474 () Unzip progress: 11113 out of 11113 files (162.7 MB, plugins/wpide/vendor/nikic/php-parser/lib/PhpParser/Node/Expr/AssignOp.php)
+0015.479 () Moving old data: filesystem method / updraft_dir is potentially possible
+0015.479 () Moving old data: can potentially use wp_filesystem method / -old
+0015.479 () Entferne alte Daten ...
+0015.939 () Top-level entities being moved: hostinger-reach, updraftplus, index.php, hostinger-ai-assistant, hostinger-easy-onboarding, litespeed-cache, hostinger
+0015.942 () Verschiebe entpackte Sicherung an Stelle ...
+0016.738 () Top-level entities being moved: updraftplus, index.php, hello.php, seo-by-rank-math, wpide, akismet, wpconsent-cookies-banner-privacy-suite, elementor, pro-elements, wp-mail-smtp
+0016.744 () Räume auf ...
+0016.750 () Entity: themes
+0016.750 () restore_backup(backup_file=backup_2026-08-17-1520_odooservice_153247d148b4-themes.zip, type=themes, info=a:3:{s:4:"path";s:92:"/home/u505131560/domains/azure-dunlin-623817.hostingersite.com/public_html/wp-content/themes";s:11:"description";s:6:"Themes";s:20:"singular_description";s:5:"Theme";}, last_one=)
+0016.750 () Entpacke Sicherung... (backup_2026-08-17-1520_odooservice_153247d148b4-themes.zip, 13.5 MB)
+0016.751 () Unzipping backup_2026-08-17-1520_odooservice_153247d148b4-themes.zip to /home/u505131560/domains/azure-dunlin-623817.hostingersite.com/public_html/wp-content/upgrade/a9f45f80/ using UpdraftPlus_ZipArchive, starting index 0
+0016.950 () Unzip progress: 579 out of 579 files (15.1 MB, themes/hello-elementor-child/functions.php)
+0016.951 () Moving old data: filesystem method / updraft_dir is potentially possible
+0016.951 () Moving old data: can potentially use wp_filesystem method / -old
+0016.951 () Entferne alte Daten ...
+0016.978 () Top-level entities being moved: twentytwentythree, index.php, twentytwentyfour, twentytwentyfive
+0016.979 () Verschiebe entpackte Sicherung an Stelle ...
+0017.017 () Top-level entities being moved: twentytwentythree, index.php, hello-elementor-child, hello-elementor, twentytwentyfour, twentytwentyfive
+0017.018 () Räume auf ...
+0017.024 () Entity: uploads
+0017.024 () restore_backup(backup_file=backup_2026-08-17-1520_odooservice_153247d148b4-uploads.zip, type=uploads, info=a:2:{s:4:"path";s:93:"/home/u505131560/domains/azure-dunlin-623817.hostingersite.com/public_html/wp-content/uploads";s:11:"description";s:7:"Uploads";}, last_one=)
+0017.025 () Entpacke Sicherung... (backup_2026-08-17-1520_odooservice_153247d148b4-uploads.zip, 63.9 MB)
+0017.025 () Unzipping backup_2026-08-17-1520_odooservice_153247d148b4-uploads.zip to /home/u505131560/domains/azure-dunlin-623817.hostingersite.com/public_html/wp-content/upgrade/3932608c/ using UpdraftPlus_ZipArchive, starting index 0
+0017.254 () Unzip progress: 314 out of 314 files (64 MB, uploads/elementor/css/post-17.css)
+0017.255 () Moving old data: filesystem method / updraft_dir is potentially possible
+0017.255 () Moving old data: can potentially use wp_filesystem method / -old
+0017.255 () Entferne alte Daten ...
+0017.255 () Verschiebe entpackte Sicherung an Stelle ...
+0017.274 () Räume auf ...
+0017.278 () Entity: others
+0017.278 () restore_backup(backup_file=backup_2026-08-17-1520_odooservice_153247d148b4-others.zip, type=others, info=a:2:{s:4:"path";s:85:"/home/u505131560/domains/azure-dunlin-623817.hostingersite.com/public_html/wp-content";s:11:"description";s:6:"Andere";}, last_one=1)
+0017.278 () Entpacke Sicherung... (backup_2026-08-17-1520_odooservice_153247d148b4-others.zip, 2.4 MB)
+0017.279 () Unzipping backup_2026-08-17-1520_odooservice_153247d148b4-others.zip to /home/u505131560/domains/azure-dunlin-623817.hostingersite.com/public_html/wp-content/upgrade/f6fa41cd/ using UpdraftPlus_ZipArchive, starting index 0
+0017.386 () Unzip progress: 267 out of 267 files (8.2 MB, languages/themes/hello-elementor-de_DE-68dda27e3b212b556b8159c5db4bb892.json)
+0017.387 () Räume auf ...
+0017.407 () Elementor's CSS directory exists, and will be emptied (so that it will be automatically regenerated)
+0017.415 () Restore successful!
+0017.415 () Restore successful
