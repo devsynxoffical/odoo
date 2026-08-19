@@ -91,6 +91,12 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 Header set X-Content-Type-Options "nosniff"
 Header set X-XSS-Protection "1; mode=block"
 Header always append X-Frame-Options SAMEORIGIN
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Gzip / Deflate Compression for Speed & SEO
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml application/rss+xml font/ttf font/otf font/x-woff image/svg+xml
 </IfModule>
 
 # Block directory browsing and server signature (Security/Technical SEO)
