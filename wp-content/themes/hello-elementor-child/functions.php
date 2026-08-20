@@ -538,4 +538,71 @@ add_filter( 'wp_get_nav_menu_items', function( $items, $menu, $args ) {
     }
 
     return $items;
-}, 10, 3 );
+}, 10, 3 );
+
+/**
+ * Frontend Navigation Menu Enhancer (Guarantees Blog Link in Desktop & Mobile Header)
+ */
+function odooservice_header_menu_blog_script() {
+    if ( is_admin() ) {
+        return;
+    }
+    ?>
+    <script>
+    (function() {
+        function injectBlogMenu() {
+            var blogUrl = '<?php echo esc_url( home_url( '/blog/' ) ); ?>';
+            var isBlog = window.location.pathname.indexOf('/blog') !== -1 || window.location.pathname.indexOf('/odoo-erp-einfuehrung-leitfaden') !== -1;
+            
+            // Find all desktop and mobile navigation menus
+            var navLists = document.querySelectorAll('ul.elementor-nav-menu, ul.sub-menu');
+            navLists.forEach(function(ul) {
+                // Ignore submenus
+                if (ul.classList.contains('sub-menu')) {
+                    return;
+                }
+                
+                var hasBlog = false;
+                var items = ul.querySelectorAll('li');
+                items.forEach(function(li) {
+                    var a = li.querySelector('a');
+                    if (a && (a.getAttribute('href') === blogUrl || a.textContent.trim() === 'Blog')) {
+                        hasBlog = true;
+                    }
+                });
+
+                if (!hasBlog) {
+                    var blogLi = document.createElement('li');
+                    blogLi.className = 'menu-item menu-item-type-post_type menu-item-object-page menu-item-blog';
+                    if (isBlog) {
+                        blogLi.className += ' current-menu-item current_page_item';
+                    }
+                    
+                    var activeClass = isBlog ? ' elementor-item-active highlight-active' : '';
+                    blogLi.innerHTML = '<a href="' + blogUrl + '" class="elementor-item' + activeClass + '">Blog</a>';
+                    
+                    // Append before closing or after references
+                    ul.appendChild(blogLi);
+                }
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', injectBlogMenu);
+        } else {
+            injectBlogMenu();
+        }
+        window.addEventListener('load', injectBlogMenu);
+    })();
+    </script>
+    <style>
+    .menu-item-blog a {
+        transition: color 0.2s ease !important;
+    }
+    .menu-item-blog a:hover {
+        color: #B8FF29 !important;
+    }
+    </style>
+    <?php
+}
+add_action( 'wp_footer', 'odooservice_header_menu_blog_script', 99 );
