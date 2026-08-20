@@ -490,4 +490,52 @@ add_filter( 'rank_math/opengraph/facebook/og_locale', function( $locale ) {
 
 add_filter( 'the_excerpt_rss', function( $content ) {
     return $content . ' <p>Quelle: <a href="' . esc_url( home_url( '/' ) ) . '">Odoo Service</a> - Ihr Odoo ERP Partner.</p>';
-});
+});
+
+/**
+ * =========================================================================
+ * 8. AUTOMATIC NAVIGATION MENU INJECTION FOR BLOG
+ * =========================================================================
+ */
+add_filter( 'wp_get_nav_menu_items', function( $items, $menu, $args ) {
+    if ( is_admin() || empty( $items ) ) {
+        return $items;
+    }
+
+    $has_blog = false;
+    foreach ( $items as $item ) {
+        if ( isset( $item->url ) && ( strpos( $item->url, '/blog' ) !== false || ( isset( $item->title ) && 'Blog' === $item->title ) ) ) {
+            $has_blog = true;
+            break;
+        }
+    }
+
+    if ( ! $has_blog ) {
+        $blog_page = get_page_by_path( 'blog' );
+        $blog_id   = $blog_page ? $blog_page->ID : 999999;
+        $is_curr   = ( is_page( 'blog' ) || is_singular( 'post' ) || ( is_page() && 'blog' === get_post_field( 'post_name', get_the_ID() ) ) );
+
+        $blog_item = (object) array(
+            'ID'                    => $blog_id,
+            'db_id'                 => $blog_id,
+            'title'                 => 'Blog',
+            'url'                   => home_url( '/blog/' ),
+            'menu_order'            => count( $items ) + 1,
+            'menu_item_parent'      => 0,
+            'type'                  => 'post_type',
+            'object'                => 'page',
+            'object_id'             => $blog_id,
+            'target'                => '',
+            'attr_title'            => 'Blog & Ratgeber',
+            'description'           => '',
+            'classes'               => array( 'menu-item', 'menu-item-type-post_type', 'menu-item-object-page', 'menu-item-blog' ),
+            'xfn'                   => '',
+            'current'               => $is_curr,
+            'current_item_ancestor' => false,
+            'current_item_parent'   => false,
+        );
+        $items[] = $blog_item;
+    }
+
+    return $items;
+}, 10, 3 );
