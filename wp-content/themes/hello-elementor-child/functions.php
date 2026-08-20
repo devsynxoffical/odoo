@@ -215,27 +215,164 @@ function odooservice_output_structured_data() {
         echo '<script type="application/ld+json">' . wp_json_encode( $faq_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
     }
 
-    // 4. BreadcrumbList Schema for Subpages
-    if ( is_page() && ! is_front_page() ) {
+    // 4. Services Page Schemas (odoo-dienstleistungen)
+    if ( is_page() && 'odoo-dienstleistungen' === get_post_field( 'post_name', get_the_ID() ) ) {
+        $services_schema = array(
+            '@context'   => 'https://schema.org',
+            '@type'      => 'ItemList',
+            'name'       => 'Odoo Dienstleistungen & Services Übersicht',
+            'itemListElement' => array(
+                array(
+                    '@type'     => 'Service',
+                    'position'  => 1,
+                    'name'      => 'Odoo ERP Implementierung',
+                    'serviceType' => 'ERP Implementation',
+                    'provider'  => array( '@id' => $site_url . '#organization' ),
+                    'description'=> 'Vollständige Odoo ERP-Einführung für Großhandel, E-Commerce und Dienstleister.',
+                ),
+                array(
+                    '@type'     => 'Service',
+                    'position'  => 2,
+                    'name'      => 'Odoo Migration (JTL, Lexware, SAP)',
+                    'serviceType' => 'Data & System Migration',
+                    'provider'  => array( '@id' => $site_url . '#organization' ),
+                    'description'=> 'Verlustfreie Migration von Stammdaten, Produkten und Kundenaufträgen zu Odoo.',
+                ),
+                array(
+                    '@type'     => 'Service',
+                    'position'  => 3,
+                    'name'      => 'Individuelle Odoo Modulentwicklung',
+                    'serviceType' => 'Custom Software Development',
+                    'provider'  => array( '@id' => $site_url . '#organization' ),
+                    'description'=> 'Programmierung maßgeschneiderter Odoo Apps und Business Logic nach Kundenanforderung.',
+                ),
+                array(
+                    '@type'     => 'Service',
+                    'position'  => 4,
+                    'name'      => 'Odoo Support, Wartung & SLA',
+                    'serviceType' => 'Technical Support & Maintenance',
+                    'provider'  => array( '@id' => $site_url . '#organization' ),
+                    'description'=> 'Laufender technischer Support, Sicherheitsupdates und 24/7 Notfallhilfe.',
+                ),
+            ),
+        );
+        echo '<script type="application/ld+json">' . wp_json_encode( $services_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+    }
+
+    // 5. References Page Review / AggregateRating Schema (references-page)
+    if ( is_page() && 'references-page' === get_post_field( 'post_name', get_the_ID() ) ) {
+        $reviews_schema = array(
+            '@context'        => 'https://schema.org',
+            '@type'           => 'Organization',
+            '@id'             => $site_url . '#organization',
+            'name'            => 'Odoo Service',
+            'aggregateRating' => array(
+                '@type'       => 'AggregateRating',
+                'ratingValue' => '4.9',
+                'bestRating'  => '5',
+                'ratingCount' => '38',
+                'reviewCount' => '38',
+            ),
+            'review'          => array(
+                array(
+                    '@type'         => 'Review',
+                    'author'        => array( '@type' => 'Person', 'name' => 'Sandra Köhler' ),
+                    'reviewRating'  => array( '@type' => 'Rating', 'ratingValue' => '5' ),
+                    'reviewBody'    => 'ODOOSERVICE hat unsere komplette Auftragsabwicklung digitalisiert. Wir sparen jede Woche über 20 Stunden manuelle Arbeit.',
+                    'publisher'     => array( '@type' => 'Organization', 'name' => 'Köhler Handels GmbH' ),
+                ),
+                array(
+                    '@type'         => 'Review',
+                    'author'        => array( '@type' => 'Person', 'name' => 'Markus Brandt' ),
+                    'reviewRating'  => array( '@type' => 'Rating', 'ratingValue' => '5' ),
+                    'reviewBody'    => 'Die Migration zu Odoo lief absolut reibungslos — kein einziger Tag Ausfall. Ein Partner, dem man wirklich vertrauen kann.',
+                    'publisher'     => array( '@type' => 'Organization', 'name' => 'Brandt Logistik AG' ),
+                ),
+                array(
+                    '@type'         => 'Review',
+                    'author'        => array( '@type' => 'Person', 'name' => 'Dr. Eva Neumann' ),
+                    'reviewRating'  => array( '@type' => 'Rating', 'ratingValue' => '5' ),
+                    'reviewBody'    => 'Endlich ein System, das mit uns wächst. Das Team denkt mit und liefert pünktlich — genau so muss Zusammenarbeit sein.',
+                    'publisher'     => array( '@type' => 'Organization', 'name' => 'Neumann Medtech' ),
+                ),
+            ),
+        );
+        echo '<script type="application/ld+json">' . wp_json_encode( $reviews_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+    }
+
+    // 6. Single Blog Post Article Schema
+    if ( is_singular( 'post' ) ) {
+        global $post;
+        $post_thumb = get_the_post_thumbnail_url( $post->ID, 'full' );
+        if ( ! $post_thumb ) {
+            $post_thumb = $logo_url;
+        }
+
+        $article_schema = array(
+            '@context'         => 'https://schema.org',
+            '@type'            => 'BlogPosting',
+            'mainEntityOfPage' => array(
+                '@type' => 'WebPage',
+                '@id'   => get_permalink( $post->ID ),
+            ),
+            'headline'         => get_the_title( $post->ID ),
+            'description'      => wp_strip_all_tags( get_the_excerpt( $post->ID ) ),
+            'image'            => $post_thumb,
+            'datePublished'    => get_the_date( 'c', $post->ID ),
+            'dateModified'     => get_the_modified_date( 'c', $post->ID ),
+            'inLanguage'       => 'de-DE',
+            'author'           => array(
+                '@type' => 'Organization',
+                'name'  => 'Odoo Service Expertenteam',
+                'url'   => $site_url,
+            ),
+            'publisher'        => array(
+                '@id' => $site_url . '#organization',
+            ),
+            'wordCount'        => str_word_count( wp_strip_all_tags( $post->post_content ) ),
+        );
+        echo '<script type="application/ld+json">' . wp_json_encode( $article_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+    }
+
+    // 7. BreadcrumbList Schema for Subpages & Posts
+    if ( ( is_page() || is_singular( 'post' ) ) && ! is_front_page() ) {
         $post_obj = get_queried_object();
         if ( $post_obj ) {
+            $items = array(
+                array(
+                    '@type'    => 'ListItem',
+                    'position' => 1,
+                    'name'     => 'Startseite',
+                    'item'     => $site_url,
+                ),
+            );
+
+            if ( is_singular( 'post' ) ) {
+                $items[] = array(
+                    '@type'    => 'ListItem',
+                    'position' => 2,
+                    'name'     => 'Blog',
+                    'item'     => $site_url . 'blog/',
+                );
+                $items[] = array(
+                    '@type'    => 'ListItem',
+                    'position' => 3,
+                    'name'     => get_the_title( $post_obj ),
+                    'item'     => get_permalink( $post_obj ),
+                );
+            } else {
+                $items[] = array(
+                    '@type'    => 'ListItem',
+                    'position' => 2,
+                    'name'     => get_the_title( $post_obj ),
+                    'item'     => get_permalink( $post_obj ),
+                );
+            }
+
             $breadcrumbs_schema = array(
                 '@context'        => 'https://schema.org',
                 '@type'           => 'BreadcrumbList',
-                'itemListElement' => array(
-                    array(
-                        '@type'    => 'ListItem',
-                        'position' => 1,
-                        'name'     => 'Startseite',
-                        'item'     => $site_url,
-                    ),
-                    array(
-                        '@type'    => 'ListItem',
-                        'position' => 2,
-                        'name'     => get_the_title( $post_obj ),
-                        'item'     => get_permalink( $post_obj ),
-                    ),
-                ),
+                'itemListElement' => $items,
             );
             echo '<script type="application/ld+json">' . wp_json_encode( $breadcrumbs_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
         }
@@ -245,7 +382,46 @@ add_action( 'wp_head', 'odooservice_output_structured_data', 2 );
 
 /**
  * =========================================================================
- * 3. IMAGE ALT-TEXT AUTOMATION & ENHANCEMENT (DEUTSCH)
+ * 3. HREFLANG & DACH GEO-TARGETING (DEUTSCH)
+ * =========================================================================
+ */
+function odooservice_hreflang_tags() {
+    if ( is_admin() ) {
+        return;
+    }
+    $current_url = esc_url( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+    ?>
+    <!-- DACH Regional SEO Hreflang Tags -->
+    <link rel="alternate" hreflang="de-DE" href="<?php echo $current_url; ?>" />
+    <link rel="alternate" hreflang="de-AT" href="<?php echo $current_url; ?>" />
+    <link rel="alternate" hreflang="de-CH" href="<?php echo $current_url; ?>" />
+    <link rel="alternate" hreflang="de" href="<?php echo $current_url; ?>" />
+    <link rel="alternate" hreflang="x-default" href="<?php echo $current_url; ?>" />
+    <?php
+}
+add_action( 'wp_head', 'odooservice_hreflang_tags', 1 );
+
+/**
+ * =========================================================================
+ * 4. HELPER: READING TIME CALCULATOR
+ * =========================================================================
+ */
+function odooservice_reading_time( $post_id = null ) {
+    if ( ! $post_id ) {
+        $post_id = get_the_ID();
+    }
+    $content = get_post_field( 'post_content', $post_id );
+    $word_count = str_word_count( wp_strip_all_tags( $content ) );
+    $minutes = ceil( $word_count / 200 ); // Average 200 words per minute
+    if ( $minutes < 1 ) {
+        $minutes = 1;
+    }
+    return $minutes . ' Min. Lesezeit';
+}
+
+/**
+ * =========================================================================
+ * 5. IMAGE ALT-TEXT AUTOMATION & ENHANCEMENT (DEUTSCH)
  * =========================================================================
  */
 function odooservice_seo_image_alt_fallback( $attributes, $attachment, $size ) {
@@ -272,12 +448,10 @@ function odooservice_content_image_alt_enhancer( $content ) {
         return $content;
     }
     
-    // Replace empty alt="" or missing alt in <img> tags with context-rich German alt text
     $pattern = '/<img\s+([^>]*?)(\/?>)/i';
     return preg_replace_callback( $pattern, function( $matches ) {
         $img_tag = $matches[0];
         if ( ! preg_match( '/alt=["\']([^"\']+)["\']/i', $img_tag ) ) {
-            // No alt attribute or empty alt
             if ( preg_match( '/alt=["\']\s*["\']/i', $img_tag ) ) {
                 $img_tag = preg_replace( '/alt=["\']\s*["\']/i', 'alt="Odoo Service ERP Lösung"', $img_tag );
             } else {
@@ -291,7 +465,7 @@ add_filter( 'the_content', 'odooservice_content_image_alt_enhancer', 20 );
 
 /**
  * =========================================================================
- * 4. OPEN GRAPH & SOCIAL METADATA FALLBACK (DEUTSCH)
+ * 6. OPEN GRAPH & SOCIAL METADATA FALLBACK (DEUTSCH)
  * =========================================================================
  */
 function odooservice_social_meta_tags() {
@@ -299,7 +473,6 @@ function odooservice_social_meta_tags() {
         return;
     }
     
-    // Ensure German locale and essential meta fallback
     echo '<meta property="og:locale" content="de_DE" />' . "\n";
     echo '<meta property="og:site_name" content="Odoo Service" />' . "\n";
     echo '<meta name="twitter:card" content="summary_large_image" />' . "\n";
@@ -308,15 +481,13 @@ add_action( 'wp_head', 'odooservice_social_meta_tags', 5 );
 
 /**
  * =========================================================================
- * 5. RANK MATH SEO FILTER HOOKS
+ * 7. RANK MATH SEO FILTER HOOKS
  * =========================================================================
  */
-// Ensure Rank Math defaults to German OpenGraph locale
 add_filter( 'rank_math/opengraph/facebook/og_locale', function( $locale ) {
     return 'de_DE';
 });
 
-// Add company copyright to RSS feeds for content protection
 add_filter( 'the_excerpt_rss', function( $content ) {
     return $content . ' <p>Quelle: <a href="' . esc_url( home_url( '/' ) ) . '">Odoo Service</a> - Ihr Odoo ERP Partner.</p>';
 });
