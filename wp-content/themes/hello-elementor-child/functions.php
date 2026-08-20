@@ -550,14 +550,12 @@ function odooservice_header_menu_blog_script() {
     ?>
     <script>
     (function() {
+        var blogUrl = '<?php echo esc_url( home_url( '/blog/' ) ); ?>';
+        var isBlog = window.location.pathname.indexOf('/blog') !== -1 || window.location.pathname.indexOf('/odoo-erp-einfuehrung-leitfaden') !== -1;
+
         function injectBlogMenu() {
-            var blogUrl = '<?php echo esc_url( home_url( '/blog/' ) ); ?>';
-            var isBlog = window.location.pathname.indexOf('/blog') !== -1 || window.location.pathname.indexOf('/odoo-erp-einfuehrung-leitfaden') !== -1;
-            
-            // Find all desktop and mobile navigation menus
-            var navLists = document.querySelectorAll('ul.elementor-nav-menu, ul.sub-menu');
+            var navLists = document.querySelectorAll('ul.elementor-nav-menu, .elementor-nav-menu--main ul, .elementor-nav-menu--dropdown ul');
             navLists.forEach(function(ul) {
-                // Ignore submenus
                 if (ul.classList.contains('sub-menu')) {
                     return;
                 }
@@ -566,7 +564,7 @@ function odooservice_header_menu_blog_script() {
                 var items = ul.querySelectorAll('li');
                 items.forEach(function(li) {
                     var a = li.querySelector('a');
-                    if (a && (a.getAttribute('href') === blogUrl || a.textContent.trim() === 'Blog')) {
+                    if (a && (a.getAttribute('href') === blogUrl || a.getAttribute('href') === '/blog/' || a.textContent.trim().toLowerCase() === 'blog')) {
                         hasBlog = true;
                     }
                 });
@@ -579,20 +577,39 @@ function odooservice_header_menu_blog_script() {
                     }
                     
                     var activeClass = isBlog ? ' elementor-item-active highlight-active' : '';
-                    blogLi.innerHTML = '<a href="' + blogUrl + '" class="elementor-item' + activeClass + '">Blog</a>';
-                    
-                    // Append before closing or after references
+                    blogLi.innerHTML = '<a href="' + blogUrl + '" class="elementor-item' + activeClass + '" style="font-family: inherit;">Blog</a>';
                     ul.appendChild(blogLi);
                 }
             });
         }
 
+        // Run immediately
+        injectBlogMenu();
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', injectBlogMenu);
-        } else {
-            injectBlogMenu();
         }
         window.addEventListener('load', injectBlogMenu);
+
+        // Run repeated checks for 3 seconds for dynamic Elementor hydration
+        var count = 0;
+        var interval = setInterval(function() {
+            injectBlogMenu();
+            count++;
+            if (count > 15) {
+                clearInterval(interval);
+            }
+        }, 200);
+
+        // Observe DOM mutations in header
+        if (window.MutationObserver) {
+            var observer = new MutationObserver(function() {
+                injectBlogMenu();
+            });
+            var headerEl = document.querySelector('header, .elementor-location-header, .site-header');
+            if (headerEl) {
+                observer.observe(headerEl, { childList: true, subtree: true });
+            }
+        }
     })();
     </script>
     <style>
@@ -605,4 +622,5 @@ function odooservice_header_menu_blog_script() {
     </style>
     <?php
 }
-add_action( 'wp_footer', 'odooservice_header_menu_blog_script', 99 );
+add_action( 'wp_footer', 'odooservice_header_menu_blog_script', 99 );
+add_action( 'wp_head', 'odooservice_header_menu_blog_script', 99 );

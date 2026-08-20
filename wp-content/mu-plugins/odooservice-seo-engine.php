@@ -141,7 +141,7 @@ class OdooService_SEO_Engine {
      * Synchronize postmeta records, Blog page and sample article safely
      */
     public static function sync_seo_and_blog_content() {
-        if ( get_option( 'odooservice_seo_meta_synced_v3' ) ) {
+        if ( get_option( 'odooservice_seo_meta_synced_v4' ) ) {
             return;
         }
 
@@ -162,6 +162,7 @@ class OdooService_SEO_Engine {
 
             // 2. Create Blog Overview Page if it does not exist
             $blog_page = get_page_by_path( 'blog' );
+            $target_blog_id = $blog_page ? $blog_page->ID : 0;
             if ( ! $blog_page ) {
                 $blog_page_id = wp_insert_post( array(
                     'post_title'     => 'Blog & Ratgeber',
@@ -173,6 +174,7 @@ class OdooService_SEO_Engine {
                 ) );
 
                 if ( $blog_page_id && ! is_wp_error( $blog_page_id ) ) {
+                    $target_blog_id = $blog_page_id;
                     update_post_meta( $blog_page_id, '_wp_page_template', 'page-blog.php' );
                     update_post_meta( $blog_page_id, 'rank_math_title', 'Odoo Blog & Ratgeber | ERP Insights, Tipps & Best Practices' );
                     update_post_meta( $blog_page_id, 'rank_math_description', 'Praxisnahe Fachartikel, Leitfäden und Experten-Tipps rund um Odoo ERP Einführung, Modulentwicklung, JTL-Migration und Prozessoptimierung.' );
@@ -231,7 +233,54 @@ class OdooService_SEO_Engine {
                 }
             }
 
-            update_option( 'odooservice_seo_meta_synced_v3', 1 );
+            // 4. Ensure Blog is inserted into Main Menu in Database
+            global $wpdb;
+            if ( isset( $wpdb->terms ) && isset( $wpdb->term_taxonomy ) ) {
+                $term_tax = $wpdb->get_var( "SELECT tt.term_taxonomy_id FROM {$wpdb->terms} t JOIN {$wpdb->term_taxonomy} tt ON t.term_id = tt.term_id WHERE t.slug = 'main-menu' AND tt.taxonomy = 'nav_menu' LIMIT 1" );
+                if ( ! $term_tax ) {
+                    $term_tax = 4;
+                }
+
+                $menu_item_exists = $wpdb->get_var( $wpdb->prepare(
+                    "SELECT p.ID FROM {$wpdb->posts} p JOIN {$wpdb->term_relationships} tr ON p.ID = tr.object_id WHERE tr.term_taxonomy_id = %d AND (p.post_title = 'Blog' OR p.post_name = 'blog-menu-item') LIMIT 1",
+                    $term_tax
+                ) );
+
+                if ( ! $menu_item_exists && $term_tax ) {
+                    $wpdb->insert( $wpdb->posts, array(
+                        'post_author'   => 1,
+                        'post_date'     => current_time( 'mysql' ),
+                        'post_date_gmt' => current_time( 'mysql', 1 ),
+                        'post_title'    => 'Blog',
+                        'post_status'   => 'publish',
+                        'comment_status'=> 'closed',
+                        'ping_status'   => 'closed',
+                        'post_name'     => 'blog-menu-item',
+                        'post_type'     => 'nav_menu_item',
+                        'menu_order'    => 4,
+                    ) );
+                    $nav_item_id = $wpdb->insert_id;
+
+                    if ( $nav_item_id ) {
+                        $wpdb->insert( $wpdb->term_relationships, array(
+                            'object_id'        => $nav_item_id,
+                            'term_taxonomy_id' => $term_tax,
+                            'term_order'       => 4,
+                        ) );
+
+                        $wpdb->insert( $wpdb->postmeta, array( 'post_id' => $nav_item_id, 'meta_key' => '_menu_item_type', 'meta_value' => 'post_type' ) );
+                        $wpdb->insert( $wpdb->postmeta, array( 'post_id' => $nav_item_id, 'meta_key' => '_menu_item_menu_item_parent', 'meta_value' => '0' ) );
+                        $wpdb->insert( $wpdb->postmeta, array( 'post_id' => $nav_item_id, 'meta_key' => '_menu_item_object_id', 'meta_value' => (string) $target_blog_id ) );
+                        $wpdb->insert( $wpdb->postmeta, array( 'post_id' => $nav_item_id, 'meta_key' => '_menu_item_object', 'meta_value' => 'page' ) );
+                        $wpdb->insert( $wpdb->postmeta, array( 'post_id' => $nav_item_id, 'meta_key' => '_menu_item_target', 'meta_value' => '' ) );
+                        $wpdb->insert( $wpdb->postmeta, array( 'post_id' => $nav_item_id, 'meta_key' => '_menu_item_classes', 'meta_value' => 'a:1:{i:0;s:0:"";}' ) );
+                        $wpdb->insert( $wpdb->postmeta, array( 'post_id' => $nav_item_id, 'meta_key' => '_menu_item_xfn', 'meta_value' => '' ) );
+                        $wpdb->insert( $wpdb->postmeta, array( 'post_id' => $nav_item_id, 'meta_key' => '_menu_item_url', 'meta_value' => '' ) );
+                    }
+                }
+            }
+
+            update_option( 'odooservice_seo_meta_synced_v4', 1 );
         } catch ( \Throwable $e ) {
             // Prevent fatal error from breaking front-end
             error_log( 'OdooService SEO Engine init error: ' . $e->getMessage() );
