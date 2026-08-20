@@ -1,8 +1,8 @@
 /*
 Theme Name: Hello Elementor Child
 Template: hello-elementor
-Version: 1.1.0
-Description: Child theme for Hello Elementor with Custom Dark-Teal On-Page SEO Engine & Blog Templates
+Version: 1.2.0
+Description: Child theme for Hello Elementor with Responsive Dark-Teal On-Page SEO Engine & Blog Templates
 Author: Odoo Service Team
 */
 
@@ -29,6 +29,7 @@ Author: Odoo Service Team
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
+    box-sizing: border-box;
 }
 
 /* --------------------------------------------------------------------------
@@ -43,7 +44,7 @@ Author: Odoo Service Team
 }
 
 .blog-hero {
-    padding: 100px 0 60px;
+    padding: 90px 0 50px;
     text-align: center;
     background: radial-gradient(circle at 50% 20%, rgba(184, 255, 41, 0.08) 0%, rgba(3, 31, 38, 0) 70%);
 }
@@ -98,6 +99,7 @@ Author: Odoo Service Team
     border: 1px solid rgba(229, 252, 247, 0.12);
     text-decoration: none;
     transition: all 0.25s ease;
+    white-space: nowrap;
 }
 
 .cat-pill:hover,
@@ -112,12 +114,12 @@ Author: Odoo Service Team
 
 /* Blog Grid */
 .blog-grid-section {
-    padding: 40px 0 80px;
+    padding: 30px 0 60px;
 }
 
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 32px;
 }
 
@@ -243,7 +245,7 @@ Author: Odoo Service Team
 
 /* Bottom CTA Banner */
 .blog-cta-section {
-    padding: 40px 0 20px;
+    padding: 30px 0 20px;
 }
 
 .blog-cta-card {
@@ -293,6 +295,7 @@ Author: Odoo Service Team
 .btn-primary-neon {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     padding: 14px 28px;
     background: #B8FF29;
@@ -316,6 +319,7 @@ Author: Odoo Service Team
 .btn-secondary-ghost {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     padding: 14px 28px;
     background: transparent;
     color: #ffffff;
@@ -345,7 +349,7 @@ Author: Odoo Service Team
 }
 
 .article-header {
-    padding: 80px 0 40px;
+    padding: 70px 0 36px;
     background: radial-gradient(circle at 50% 0%, rgba(184, 255, 41, 0.06) 0%, rgba(3, 31, 38, 0) 70%);
 }
 
@@ -387,7 +391,7 @@ Author: Odoo Service Team
 }
 
 .article-title {
-    font-size: 42px;
+    font-size: 40px;
     font-weight: 700;
     color: #ffffff;
     line-height: 1.25;
@@ -421,6 +425,7 @@ Author: Odoo Service Team
     align-items: center;
     justify-content: center;
     border: 1px solid rgba(184, 255, 41, 0.3);
+    flex-shrink: 0;
 }
 
 .author-name {
@@ -440,6 +445,7 @@ Author: Odoo Service Team
     gap: 20px;
     font-size: 14px;
     color: #ADE0DE;
+    flex-wrap: wrap;
 }
 
 .meta-item {
@@ -573,6 +579,7 @@ Author: Odoo Service Team
     justify-content: center;
     font-weight: 700;
     font-size: 14px;
+    flex-shrink: 0;
 }
 
 .process-step-title {
@@ -588,6 +595,7 @@ Author: Odoo Service Team
     margin: 32px 0;
     border-radius: 12px;
     border: 1px solid rgba(229, 252, 247, 0.1);
+    -webkit-overflow-scrolling: touch;
 }
 
 .seo-table {
@@ -595,6 +603,7 @@ Author: Odoo Service Team
     border-collapse: collapse;
     background: #07363D;
     text-align: left;
+    min-width: 500px;
 }
 
 .seo-table th {
@@ -842,23 +851,43 @@ Author: Odoo Service Team
 }
 
 /* --------------------------------------------------------------------------
-   3. RESPONSIVE DESIGN (TABLETS & MOBILE)
+   3. RESPONSIVE DESIGN (TABLETS & MOBILE SMARTPHONES)
    -------------------------------------------------------------------------- */
+
+/* Tablets & Small Laptops (max-width: 991px) */
 @media (max-width: 991px) {
+    .blog-container,
+    .article-container {
+        padding: 0 20px;
+    }
+    
+    .blog-hero {
+        padding: 70px 0 40px;
+    }
+    
+    .blog-hero-title {
+        font-size: 34px;
+    }
+    
+    .blog-grid {
+        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+        gap: 24px;
+    }
+    
     .article-layout {
         grid-template-columns: 1fr;
+        gap: 36px;
     }
     
     .article-sidebar {
-        margin-top: 30px;
+        margin-top: 20px;
     }
     
     .sidebar-sticky-widget {
         position: static;
-    }
-    
-    .blog-hero-title {
-        font-size: 36px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
     }
     
     .article-title {
@@ -866,25 +895,262 @@ Author: Odoo Service Team
     }
 }
 
-@media (max-width: 600px) {
-    .blog-grid {
-        grid-template-columns: 1fr;
+/* Mobile Devices & Small Tablets (max-width: 767px) */
+@media (max-width: 767px) {
+    .blog-container,
+    .article-container {
+        padding: 0 16px;
     }
     
-    .blog-cta-card {
-        padding: 28px 20px;
+    .blog-hero {
+        padding: 50px 0 30px;
+    }
+    
+    .blog-badge {
+        font-size: 11px;
+        padding: 4px 12px;
+        margin-bottom: 14px;
     }
     
     .blog-hero-title {
-        font-size: 28px;
+        font-size: 26px;
+        line-height: 1.25;
+        margin-bottom: 14px;
+    }
+    
+    .blog-hero-subtitle {
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 22px;
+    }
+    
+    /* Horizontal Swipable Category Filter Pills on Mobile */
+    .blog-categories {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 4px 0 10px;
+        gap: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+    }
+    
+    .blog-categories::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+    
+    .cat-pill {
+        padding: 6px 16px;
+        font-size: 13px;
+        flex-shrink: 0;
+    }
+    
+    .blog-grid-section {
+        padding: 20px 0 50px;
+    }
+    
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .blog-card-body {
+        padding: 18px 16px;
+    }
+    
+    .blog-card-title {
+        font-size: 18px;
+        line-height: 1.35;
+        margin-bottom: 10px;
+    }
+    
+    .blog-card-excerpt {
+        font-size: 14px;
+        line-height: 1.55;
+        margin-bottom: 16px;
+    }
+    
+    .blog-cta-card {
+        padding: 28px 18px;
+        border-radius: 16px;
+    }
+    
+    .blog-cta-card h2 {
+        font-size: 22px;
+        line-height: 1.3;
+        margin-bottom: 12px;
+    }
+    
+    .blog-cta-card p {
+        font-size: 14px;
+        line-height: 1.55;
+        margin-bottom: 20px;
+    }
+    
+    .blog-cta-actions {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+    
+    .btn-primary-neon,
+    .btn-secondary-ghost {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    /* Single Article Mobile */
+    .article-header {
+        padding: 40px 0 24px;
+    }
+    
+    .article-breadcrumbs {
+        font-size: 12px;
+        margin-bottom: 14px;
+        line-height: 1.4;
+    }
+    
+    .article-badge {
+        font-size: 11px;
+        padding: 4px 10px;
+        margin-bottom: 12px;
     }
     
     .article-title {
-        font-size: 26px;
+        font-size: 24px;
+        line-height: 1.3;
+        margin-bottom: 16px;
     }
     
     .article-meta-bar {
         flex-direction: column;
         align-items: flex-start;
+        gap: 12px;
+        padding: 12px 0;
+    }
+    
+    .author-avatar {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .author-name {
+        font-size: 14px;
+    }
+    
+    .author-role {
+        font-size: 12px;
+    }
+    
+    .meta-details {
+        gap: 12px;
+        font-size: 13px;
+    }
+    
+    .article-featured-image {
+        margin-bottom: 24px;
+        border-radius: 12px;
+    }
+    
+    .entry-content {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+    
+    .entry-content h2 {
+        font-size: 21px;
+        line-height: 1.3;
+        margin: 32px 0 14px;
+    }
+    
+    .entry-content h3 {
+        font-size: 18px;
+        line-height: 1.35;
+        margin: 24px 0 10px;
+    }
+    
+    .seo-callout-box {
+        padding: 16px 18px;
+        margin: 24px 0;
+        border-radius: 0 8px 8px 0;
+    }
+    
+    .seo-callout-box h4 {
+        font-size: 16px;
+    }
+    
+    .process-step-box {
+        padding: 16px;
+        margin: 18px 0;
+        border-radius: 10px;
+    }
+    
+    .process-step-header {
+        gap: 10px;
+    }
+    
+    .process-step-num {
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+    }
+    
+    .process-step-title {
+        font-size: 16px;
+        line-height: 1.3;
+    }
+    
+    .seo-table-wrapper {
+        margin: 20px 0;
+    }
+    
+    .seo-table th,
+    .seo-table td {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .article-author-box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px;
+        gap: 14px;
+        border-radius: 12px;
+    }
+    
+    .author-box-avatar {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .article-inline-cta {
+        padding: 24px 16px;
+        border-radius: 12px;
+        margin: 32px 0;
+    }
+    
+    .article-inline-cta h3 {
+        font-size: 20px;
+        line-height: 1.3;
+    }
+    
+    .article-inline-cta p {
+        font-size: 14px;
+    }
+    
+    .post-navigation .nav-links {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .nav-previous,
+    .nav-next {
+        max-width: 100%;
+    }
+    
+    .sidebar-sticky-widget {
+        grid-template-columns: 1fr;
     }
 }
