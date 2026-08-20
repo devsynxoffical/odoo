@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Odoo Service On-Page SEO & Blog Engine
  * Description: Automates Rank Math SEO Metadata, German Focus Keywords, Schema Markup, Blog Page & Article creation for odooservice.de.
- * Version: 2.0.0
+ * Version: 2.1.0
  * Author: Odoo Service Team
  * Language: Deutsch (de_DE)
  */
@@ -138,88 +138,104 @@ class OdooService_SEO_Engine {
     }
 
     /**
-     * Synchronize postmeta records, Blog page and sample article
+     * Synchronize postmeta records, Blog page and sample article safely
      */
     public static function sync_seo_and_blog_content() {
-        if ( get_option( 'odooservice_seo_meta_synced_v2' ) ) {
+        if ( get_option( 'odooservice_seo_meta_synced_v3' ) ) {
             return;
         }
 
-        // 1. Sync standard pages SEO metadata
-        foreach ( self::$seo_pages as $pid => $data ) {
-            update_post_meta( $pid, 'rank_math_title', $data['title'] );
-            update_post_meta( $pid, 'rank_math_description', $data['description'] );
-            update_post_meta( $pid, 'rank_math_focus_keyword', $data['focus_keyword'] );
-            update_post_meta( $pid, 'rank_math_canonical_url', $data['canonical'] );
-            update_post_meta( $pid, 'rank_math_facebook_title', $data['title'] );
-            update_post_meta( $pid, 'rank_math_facebook_description', $data['description'] );
-            update_post_meta( $pid, 'rank_math_twitter_title', $data['title'] );
-            update_post_meta( $pid, 'rank_math_twitter_description', $data['description'] );
-            update_post_meta( $pid, 'rank_math_twitter_use_facebook', 'off' );
-            update_post_meta( $pid, 'rank_math_robots', array( 'index' ) );
-        }
-
-        // 2. Create Blog Overview Page if it does not exist
-        $blog_page = get_page_by_path( 'blog' );
-        if ( ! $blog_page ) {
-            $blog_page_id = wp_insert_post( array(
-                'post_title'     => 'Blog & Ratgeber',
-                'post_name'      => 'blog',
-                'post_status'    => 'publish',
-                'post_type'      => 'page',
-                'post_content'   => '',
-                'comment_status' => 'closed',
-            ) );
-
-            if ( $blog_page_id && ! is_wp_error( $blog_page_id ) ) {
-                update_post_meta( $blog_page_id, '_wp_page_template', 'page-blog.php' );
-                update_post_meta( $blog_page_id, 'rank_math_title', 'Odoo Blog & Ratgeber | ERP Insights, Tipps & Best Practices' );
-                update_post_meta( $blog_page_id, 'rank_math_description', 'Praxisnahe Fachartikel, Leitfäden und Experten-Tipps rund um Odoo ERP Einführung, Modulentwicklung, JTL-Migration und Prozessoptimierung.' );
-                update_post_meta( $blog_page_id, 'rank_math_focus_keyword', 'Odoo Blog,Odoo ERP Ratgeber,Odoo Tipps,Odoo Leitfaden,Odoo Best Practices' );
-                update_post_meta( $blog_page_id, 'rank_math_canonical_url', 'https://odooservice.de/blog/' );
-                update_post_meta( $blog_page_id, 'rank_math_robots', array( 'index' ) );
+        try {
+            // 1. Sync standard pages SEO metadata
+            foreach ( self::$seo_pages as $pid => $data ) {
+                update_post_meta( $pid, 'rank_math_title', $data['title'] );
+                update_post_meta( $pid, 'rank_math_description', $data['description'] );
+                update_post_meta( $pid, 'rank_math_focus_keyword', $data['focus_keyword'] );
+                update_post_meta( $pid, 'rank_math_canonical_url', $data['canonical'] );
+                update_post_meta( $pid, 'rank_math_facebook_title', $data['title'] );
+                update_post_meta( $pid, 'rank_math_facebook_description', $data['description'] );
+                update_post_meta( $pid, 'rank_math_twitter_title', $data['title'] );
+                update_post_meta( $pid, 'rank_math_twitter_description', $data['description'] );
+                update_post_meta( $pid, 'rank_math_twitter_use_facebook', 'off' );
+                update_post_meta( $pid, 'rank_math_robots', array( 'index' ) );
             }
-        } else {
-            update_post_meta( $blog_page->ID, '_wp_page_template', 'page-blog.php' );
-        }
 
-        // 3. Create Cornerstone Blog Post if it does not exist
-        $post_slug = 'odoo-erp-einfuehrung-leitfaden';
-        $existing_post = get_page_by_path( $post_slug, OBJECT, 'post' );
-        if ( ! $existing_post ) {
-            $cat_id = wp_create_category( 'Odoo Implementierung' );
-            if ( is_wp_error( $cat_id ) ) {
+            // 2. Create Blog Overview Page if it does not exist
+            $blog_page = get_page_by_path( 'blog' );
+            if ( ! $blog_page ) {
+                $blog_page_id = wp_insert_post( array(
+                    'post_title'     => 'Blog & Ratgeber',
+                    'post_name'      => 'blog',
+                    'post_status'    => 'publish',
+                    'post_type'      => 'page',
+                    'post_content'   => '',
+                    'comment_status' => 'closed',
+                ) );
+
+                if ( $blog_page_id && ! is_wp_error( $blog_page_id ) ) {
+                    update_post_meta( $blog_page_id, '_wp_page_template', 'page-blog.php' );
+                    update_post_meta( $blog_page_id, 'rank_math_title', 'Odoo Blog & Ratgeber | ERP Insights, Tipps & Best Practices' );
+                    update_post_meta( $blog_page_id, 'rank_math_description', 'Praxisnahe Fachartikel, Leitfäden und Experten-Tipps rund um Odoo ERP Einführung, Modulentwicklung, JTL-Migration und Prozessoptimierung.' );
+                    update_post_meta( $blog_page_id, 'rank_math_focus_keyword', 'Odoo Blog,Odoo ERP Ratgeber,Odoo Tipps,Odoo Leitfaden,Odoo Best Practices' );
+                    update_post_meta( $blog_page_id, 'rank_math_canonical_url', 'https://odooservice.de/blog/' );
+                    update_post_meta( $blog_page_id, 'rank_math_robots', array( 'index' ) );
+                }
+            } else {
+                update_post_meta( $blog_page->ID, '_wp_page_template', 'page-blog.php' );
+            }
+
+            // 3. Create Cornerstone Blog Post if it does not exist
+            $post_slug = 'odoo-erp-einfuehrung-leitfaden';
+            $existing_post = get_page_by_path( $post_slug, OBJECT, 'post' );
+            if ( ! $existing_post ) {
+                // Ensure category exists without using admin-only wp_create_category
                 $cat_id = 1;
+                if ( function_exists( 'term_exists' ) && function_exists( 'wp_insert_term' ) ) {
+                    $term = term_exists( 'Odoo Implementierung', 'category' );
+                    if ( ! $term ) {
+                        $term = wp_insert_term( 'Odoo Implementierung', 'category' );
+                    }
+                    if ( is_array( $term ) && isset( $term['term_id'] ) ) {
+                        $cat_id = (int) $term['term_id'];
+                    } elseif ( is_numeric( $term ) ) {
+                        $cat_id = (int) $term;
+                    }
+                }
+
+                $article_content = self::get_cornerstone_article_content();
+
+                $new_post_id = wp_insert_post( array(
+                    'post_title'     => 'Odoo ERP Einführung & Implementierung: Der ultimative Leitfaden für KMU',
+                    'post_name'      => $post_slug,
+                    'post_status'    => 'publish',
+                    'post_type'      => 'post',
+                    'post_content'   => $article_content,
+                    'post_excerpt'   => 'Schritt-für-Schritt-Leitfaden zur erfolgreichen Odoo ERP Einführung für KMU: Phasen, Kosten, Modulauswahl, Datenmigration & Best Practices für den Go-Live.',
+                    'post_category'  => array( $cat_id ),
+                    'comment_status' => 'open',
+                ) );
+
+                if ( $new_post_id && ! is_wp_error( $new_post_id ) ) {
+                    if ( function_exists( 'wp_set_object_terms' ) ) {
+                        wp_set_object_terms( $new_post_id, array( 'Odoo ERP', 'Implementierung', 'Migration', 'KMU', 'Best Practices' ), 'post_tag' );
+                    }
+                    update_post_meta( $new_post_id, 'rank_math_title', 'Odoo ERP Einführung & Implementierung: Der ultimative Leitfaden für KMU' );
+                    update_post_meta( $new_post_id, 'rank_math_description', 'Schritt-für-Schritt-Leitfaden zur erfolgreichen Odoo ERP Einführung für KMU: Phasen, Kosten, Modulauswahl, Datenmigration & Best Practices für den Go-Live.' );
+                    update_post_meta( $new_post_id, 'rank_math_focus_keyword', 'Odoo ERP Einführung,Odoo Implementierung Schritt für Schritt,Odoo ERP Kosten,Odoo Phasenplan,Odoo KMU Leitfaden' );
+                    update_post_meta( $new_post_id, 'rank_math_canonical_url', 'https://odooservice.de/odoo-erp-einfuehrung-leitfaden/' );
+                    update_post_meta( $new_post_id, 'rank_math_facebook_title', 'Odoo ERP Einführung & Implementierung: Der ultimative Leitfaden für KMU' );
+                    update_post_meta( $new_post_id, 'rank_math_facebook_description', 'Schritt-für-Schritt-Leitfaden zur erfolgreichen Odoo ERP Einführung für KMU: Phasen, Kosten, Modulauswahl & Best Practices.' );
+                    update_post_meta( $new_post_id, 'rank_math_twitter_title', 'Odoo ERP Einführung & Implementierung: Der ultimative Leitfaden für KMU' );
+                    update_post_meta( $new_post_id, 'rank_math_twitter_description', 'Schritt-für-Schritt-Leitfaden zur erfolgreichen Odoo ERP Einführung für KMU: Phasen, Kosten, Modulauswahl & Best Practices.' );
+                    update_post_meta( $new_post_id, 'rank_math_robots', array( 'index' ) );
+                }
             }
 
-            $article_content = self::get_cornerstone_article_content();
-
-            $new_post_id = wp_insert_post( array(
-                'post_title'     => 'Odoo ERP Einführung & Implementierung: Der ultimative Leitfaden für KMU',
-                'post_name'      => $post_slug,
-                'post_status'    => 'publish',
-                'post_type'      => 'post',
-                'post_content'   => $article_content,
-                'post_excerpt'   => 'Schritt-für-Schritt-Leitfaden zur erfolgreichen Odoo ERP Einführung für KMU: Phasen, Kosten, Modulauswahl, Datenmigration & Best Practices für den Go-Live.',
-                'post_category'  => array( $cat_id ),
-                'comment_status' => 'open',
-            ) );
-
-            if ( $new_post_id && ! is_wp_error( $new_post_id ) ) {
-                wp_set_post_tags( $new_post_id, array( 'Odoo ERP', 'Implementierung', 'Migration', 'KMU', 'Best Practices' ) );
-                update_post_meta( $new_post_id, 'rank_math_title', 'Odoo ERP Einführung & Implementierung: Der ultimative Leitfaden für KMU' );
-                update_post_meta( $new_post_id, 'rank_math_description', 'Schritt-für-Schritt-Leitfaden zur erfolgreichen Odoo ERP Einführung für KMU: Phasen, Kosten, Modulauswahl, Datenmigration & Best Practices für den Go-Live.' );
-                update_post_meta( $new_post_id, 'rank_math_focus_keyword', 'Odoo ERP Einführung,Odoo Implementierung Schritt für Schritt,Odoo ERP Kosten,Odoo Phasenplan,Odoo KMU Leitfaden' );
-                update_post_meta( $new_post_id, 'rank_math_canonical_url', 'https://odooservice.de/odoo-erp-einfuehrung-leitfaden/' );
-                update_post_meta( $new_post_id, 'rank_math_facebook_title', 'Odoo ERP Einführung & Implementierung: Der ultimative Leitfaden für KMU' );
-                update_post_meta( $new_post_id, 'rank_math_facebook_description', 'Schritt-für-Schritt-Leitfaden zur erfolgreichen Odoo ERP Einführung für KMU: Phasen, Kosten, Modulauswahl & Best Practices.' );
-                update_post_meta( $new_post_id, 'rank_math_twitter_title', 'Odoo ERP Einführung & Implementierung: Der ultimative Leitfaden für KMU' );
-                update_post_meta( $new_post_id, 'rank_math_twitter_description', 'Schritt-für-Schritt-Leitfaden zur erfolgreichen Odoo ERP Einführung für KMU: Phasen, Kosten, Modulauswahl & Best Practices.' );
-                update_post_meta( $new_post_id, 'rank_math_robots', array( 'index' ) );
-            }
+            update_option( 'odooservice_seo_meta_synced_v3', 1 );
+        } catch ( \Throwable $e ) {
+            // Prevent fatal error from breaking front-end
+            error_log( 'OdooService SEO Engine init error: ' . $e->getMessage() );
         }
-
-        update_option( 'odooservice_seo_meta_synced_v2', 1 );
     }
 
     /**
